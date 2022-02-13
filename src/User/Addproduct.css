@@ -1,0 +1,12 @@
+.cover-form{
+    display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  gap: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+

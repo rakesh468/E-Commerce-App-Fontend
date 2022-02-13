@@ -1,0 +1,35 @@
+.product {
+  width: 300px;
+  padding: 1rem;
+  background-color: #f4f4f4;
+  margin: 8px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: min-content;
+  cursor: pointer;
+  
+}
+.product > img {
+  height: 200px;
+  border-radius: 12px;
+}
+.product_info > p {
+  margin-bottom: 5px;
+}
+.info_price {
+  font-weight: bold;
+}
+.info_name {
+  font-size: 1.5rem;
+  overflow: hidden;
+}
+.info_description {
+  font-size: 0.9rem;
+}
+.product__btn {
+  color: #171717;
+  background-color: #f4f4f4;
+}
+
+
