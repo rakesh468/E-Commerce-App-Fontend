@@ -26,7 +26,7 @@ export function Product({ name, imageUrl, description, price, id }) {
             className="product__btn"
             color="inherit"
             variant="contained"
-            onClick={() => history.push("/product/"+id)}
+            onClick={() => history.push("/products/"+id)}
           >
             View
           </Button>

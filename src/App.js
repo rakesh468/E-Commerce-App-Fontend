@@ -5,7 +5,7 @@ import { useState } from "react";
 //screens//
 import { Homescreen } from "./Screens/Homescreen";
 import { Productscreen } from "./Screens/Productscreen";
-// import {Cartscreen}from "./Screens/Cartscreen";
+import { Home } from "./components/Home";
 
 //Navbar//
 import { Navbar } from "./components/Navbar";
@@ -14,6 +14,8 @@ import { Sidedrawer } from "./components/Sidedrawer";
 
 //user//
 import { Login } from "./User/Login";
+import { Resetpassword } from "./User/Resetpassword";
+import { Forgotpassword } from "./User/Forgotpassword";
 import { Signup } from "./User/Signup";
 import { Addproduct } from "./User/Addproduct";
 import { Editproduct } from "./User/Editproduct";
@@ -31,7 +33,7 @@ function App() {
             <Login />
           </Route>
           <Route exact path="/">
-            Hello world
+            <Home />
           </Route>
           <Route exact path="/addproduct">
             <Addproduct />
@@ -42,11 +44,17 @@ function App() {
           <Route exact path="/products">
             <Homescreen />
           </Route>
-          <Route exact path="/product/:id">
+          <Route exact path="/products/:id">
             <Productscreen />
           </Route>
           <Route exact path="/edit/:id">
             <Editproduct />
+          </Route>
+          <Route exact path="/forgotpassword">
+            <Forgotpassword />
+          </Route>
+          <Route exact path="/resetpassword">
+            <Resetpassword />
           </Route>
         </Switch>
       </main>

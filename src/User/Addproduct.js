@@ -6,6 +6,11 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 
+
+// heroku API//
+const API_URL="https://e-commerce-backendcode.herokuapp.com"
+
+
 const formvalidationSchema = yup.object({
   name: yup.string().required("Name required"),
   imageUrl: yup.string().required("image Url Required"),
@@ -30,7 +35,7 @@ export function Addproduct() {
     });
   const addproduct = (newproduct) => {
     console.log(newproduct);
-    fetch("https://6166c4d613aa1d00170a66f1.mockapi.io/ecommerceproducts", {
+    fetch(`${API_URL}/products`, {
       method: "POST",
       body: JSON.stringify(newproduct),
       headers: { "Content-Type": "application/json" },

@@ -7,7 +7,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Editproduct.css";
 
-const API_URL = "https://6166c4d613aa1d00170a66f1.mockapi.io";
+const API_URL="https://e-commerce-backendcode.herokuapp.com"
 
 const formvallidation = yup.object({
   name: yup.string().required(),
@@ -21,7 +21,7 @@ export function Editproduct() {
   const [data, setdata] = useState(null);
 
   useEffect(() => {
-    fetch(`${API_URL}/ecommerceproducts/${id}`, { method: "GET" })
+    fetch(`${API_URL}/products/${id}`, { method: "GET" })
       .then((data) => data.json())
       .then((dt) => setdata(dt));
   }, [id]);
@@ -46,7 +46,7 @@ function Updateproduct({ data }) {
     });
 
   const editproduct = (updatedproduct) => {
-    fetch(`${API_URL}/ecommerceproducts/${data.id}`, {
+    fetch(`${API_URL}/products/${data.id}`, {
       method: "PUT",
       body: JSON.stringify(updatedproduct),
       headers: { "Content-Type": "application/json" },

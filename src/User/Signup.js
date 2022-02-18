@@ -4,9 +4,11 @@ import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
-// import {useHistory} from "react-router-dom";
-// import Snackbar from "@mui/material/Snackbar";
-// import MuiAlert from "@mui/material/Alert";
+import { useHistory } from "react-router-dom";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const API_URL = "https://e-commerce-backendcode.herokuapp.com";
 
 const formValidationSchema = yup.object({
   firstname: yup.string().required("First Name Required"),
@@ -16,20 +18,20 @@ const formValidationSchema = yup.object({
 });
 
 export function Signup() {
-  // const [open, setOpen] = React.useState(false);
-  // const [Msg, setMsg] = React.useState("");
+  const [open, setOpen] = React.useState(false);
+  const [Msg, setMsg] = React.useState("");
 
-  // const handleClose = (event, reason) => {
-  //   if (reason === "clickaway") {
-  //     return;
-  //   }
-  //   setOpen(false);
-  // };
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
-  // const Alert = React.forwardRef(function Alert(props, ref) {
-  //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  // });
-  // const history=useHistory();
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+  const history = useHistory();
   const { handleChange, handleBlur, handleSubmit, values, errors, touched } =
     useFormik({
       initialValues: {
@@ -39,10 +41,34 @@ export function Signup() {
         password: "",
       },
       validationSchema: formValidationSchema,
-      onSubmit:(values)=>{
-        console.log("onsubmit",values)
-      }
+      onSubmit: (newuser) => {
+        console.log("onsubmit", newuser);
+        signupuser(newuser);
+      },
     });
+  const signupuser = (newuser) => {
+    console.log(newuser);
+    fetch(`${API_URL}/user/signup`, {
+      method: "POST",
+      body: JSON.stringify(newuser),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        if (response.status === 201) {
+          setMsg({ Message: "User Created Successfully", status: "success" });
+          setOpen(true);
+          setTimeout(() => history.push("/login"), 3000);
+        } else {
+          setMsg({ Message: "Invalide Credentials", status: "error" });
+          setOpen(true);
+        }
+      })
+      .catch((err) => {
+        setMsg({ message: "error", status: "error" });
+        setOpen(true);
+      });
+  };
+
   return (
     <div className="main">
       <div className="sub-main">
@@ -57,9 +83,11 @@ export function Signup() {
             onBlur={handleBlur}
             value={values.firstname}
             error={errors.firstname && touched.firstname}
-            helperText={errors.firstname && touched.firstname && errors.firstname}
+            helperText={
+              errors.firstname && touched.firstname && errors.firstname
+            }
           />
-         <TextField
+          <TextField
             id="lastname"
             name="lastname"
             label="Enter Last Name"
@@ -92,10 +120,12 @@ export function Signup() {
             error={errors.password && touched.password}
             helperText={errors.password && touched.password && errors.password}
           />
-          <Button type="submit" variant="contained" color="success">Sign  Up</Button>
+          <Button type="submit" variant="contained" color="success">
+            Sign Up
+          </Button>
         </form>
       </div>
-      {/* <Snackbar
+      <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         open={open}
         autoHideDuration={6000}
@@ -108,7 +138,7 @@ export function Signup() {
         >
           {Msg.Message}
         </Alert>
-      </Snackbar> */}
+      </Snackbar>
     </div>
   );
 }

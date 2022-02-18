@@ -10,40 +10,40 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 
-const API_URL="https://6166c4d613aa1d00170a66f1.mockapi.io";
+const API_URL="https://e-commerce-backendcode.herokuapp.com";
 
 export function Productscreen() {
-  const { id } = useParams()
+  const { id } = useParams();
   const history = useHistory();
 
-  const [data, setdata] = useState({});
+  const [detail, setdetail] = useState({})
   useEffect(() => {
-    fetch(`${API_URL}/ecommerceproducts/${id}`, {
+    fetch(`${API_URL}/products/${id}`, {
       method: "GET",
     })
-      .then((data) => data.json())
-      .then((dt) => setdata(dt));
+      .then((detail) => detail.json())
+      .then((dt) => setdetail(dt));
   }, [id]);
 
-  const deleteproduct=(id)=>{
-    fetch(`${API_URL}/ecommerceproducts/${id}`,{
+  const deleteproduct=(_id)=>{
+    fetch(`${API_URL}/products/${_id}`,{
       method:"DELETE"
     }).then(()=>history.push("/products"))
 
       
   }
-  
   return (
     <Card className="productscreen">
       <div className="productscreen_left">
         <div className="left_image">
-          <img src={data.imageUrl} alt={data.name} />
+          <img src={detail.imageUrl} alt="poster" />
         </div>
         <div className="left_info">
-          <p className="left_name">{data.name}</p>
-          <p><b>Price</b>:${data.price}</p>
+          <p className="left_name">{detail.name}</p>
+          <p><b>Price</b>:${detail.price}</p>
           <p><BasicRating /></p>
-          <p><b>Description</b>{data.description}</p>
+          <p><b>Description</b>{detail.description}</p>
+         
       
           <div className="details-btn">
            
@@ -77,3 +77,8 @@ export function Productscreen() {
 
 
 
+
+
+
+ 
+  
